@@ -56,29 +56,19 @@ size_t _getline(char **lineptr, size_t *n, FILE *stream)
 
 char *_getenv(char *envp)
 {
-	char *envs = NULL;
-	char *buffer = NULL;
-	char *copy = NULL;
+	char *path = envp;
 	int i = 0;
 
 	while (environ[i])
 	{
-		copy = _strdup(environ[i]);
-		envs = _strtok(copy, "=");
 
-		if (_strcmp(envs, envp) == 0)
+		if (_strncmp(environ[i], path, 4) == 0)
 		{
-			buffer = _strtok(NULL, "=");
-
 			break;
 		}
-		else
-		{
-			free(copy);
-			i++;
-		}
+		i++;
 	}
-	return (buffer);
+	return (environ[i]);
 }
 
 /**
@@ -108,11 +98,12 @@ void get_dir(void)
 
 path_t *get_path(void)
 {
-	char *path = NULL, *route = NULL;
+	char *path = NULL, *route = NULL, *copy = NULL;
 	path_t *head;
 
 	path = _getenv("PATH");
-	route = _strtok(path, ":");
+	copy = _strdup(path);
+	route = _strtok(copy, ":");
 	head = NULL;
 
 	while (route)
@@ -120,7 +111,8 @@ path_t *get_path(void)
 		add_node(&head, route);
 		route = _strtok(NULL, ":");
 	}
-
+	free(copy);
+	
 	return (head);
 }
 

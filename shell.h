@@ -2,7 +2,7 @@
 #define SHELL_H
 
 extern char **environ;
- #define _GNU_SOURCE
+#define _GNU_SOURCE
 
 /* libraries */
 
@@ -58,6 +58,7 @@ char *_strpbrk(char *s, char *accept);
 size_t _strcspn(const char *s1, const char *s2);
 char *_strdup(char *str);
 char *e_strdup(char *os, char *str);
+int _strncmp(const char *first, const char *last, size_t count);
 
 /* End */
 
@@ -122,6 +123,7 @@ int _fgetc(FILE *stream);
 char *get_route(char *command);
 char *_strtok(char *str, char *delim);
 void env(void);
+char *_findenv(const char *name, int *offset);
 
 /* End */
 
