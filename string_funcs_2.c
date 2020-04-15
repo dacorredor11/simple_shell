@@ -80,10 +80,10 @@ unsigned int word_count(char *str)
 	{
 		if (flag == 0 &&
 		    (str[i] == delims[0]
-		          || str[i] == delims[1]
+		     || str[i] == delims[1]
 		     || str[i] == delims[2])
-		        && str[i + 1] != delims[0]
-		        && str[i + 1] != delims[1]
+		    && str[i + 1] != delims[0]
+		    && str[i + 1] != delims[1]
 		    && str[i + 1] != delims[2])
 			flag = 1, wc++;
 		else

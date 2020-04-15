@@ -32,7 +32,7 @@ typedef struct path
 } path_t;
 
 /**
- * struct builtins - match system for function pointers & builtin commands
+ * struct builtin_commands - match system for function pointers & builtin cmds
  * @cmd_token: builtin command
  * @function: respective function
  */
