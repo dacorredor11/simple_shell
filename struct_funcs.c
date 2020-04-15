@@ -17,7 +17,7 @@ path_t *add_node(path_t **head, char *str)
 	{
 		return (NULL);
 	}
-	new->route = strdup(str);
+	new->route = _strdup(str);
 	new->next = NULL;
 
 	if (*head == NULL)

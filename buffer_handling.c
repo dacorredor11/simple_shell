@@ -11,7 +11,7 @@ int count_buffer(char *buffer)
 	int counter = 0;
 	char *copy = NULL, *token = NULL;
 
-	copy = strdup(buffer);
+	copy = _strdup(buffer);
 
 	token = _strtok(copy, " ");
 
