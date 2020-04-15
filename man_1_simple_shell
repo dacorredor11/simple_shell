@@ -1,0 +1,87 @@
+.\" Manpage for Simple Shell.
+.TH hsh 1 "April 07, 2020" "1.0" "hsh General Commands Manual"
+
+.SH NAME
+
+.B simple_shell - hsh
+- command line interpreter or shell
+
+.SH SYNOPSIS
+
+.B  ./hsh
+
+[command_string | file]
+
+.SH DESCRIPTION
+
+simple_shell is an sh-compatible command language interpreter that executes commands. It is compiled and launched from the command line within any number of Linux versions. It contains the most basic features and functions found in the various shell programs.
+
+.SS Overview
+The simple_shell is a command that reads lines from either a file or the terminal, interprets them, and generally executes other commands.  It is the program that is running when the user runs gcc -Wall -Werror -Wextra -pedantic *.c -o hsh and runs the executable file, ./hsh.The simple_shell implements a variety of features in addition to data storage, along with built functions and line editing capabilities.  It can be use in a interactive and non-interactive way. That is, commands can be typed directly to the running shell or can be put into a file and the file can be executed directly by the shell.
+
+.SH RETURN VALUE
+The shell returns the error code given by the last completed command followed by either ctrl-d or exit with no status code.
+
+.SH SYNTAX
+
+#cisfun$ <command> <flags or options> <argument 1> <argument n>
+
+.SS
+INTERACTIVE MODE
+
+#cisfun$ <command>
+
+
+.SS
+EXAMPLE 1:
+#cisfun$ /bin/ls
+
+.SS
+EXAMPLE 2:
+#cisfun$ ls -l
+
+.SS
+EXAMPLE 3:
+#cisfun$ cat textfile
+
+.SS
+EXAMPLE 4:
+#cisfun$ mkdir folder
+
+.SS
+OR NON-INTERACTIVE MODE:
+
+$ echo "<command>" | ./hsh
+
+.SS
+EXAMPLE 1:
+$ echo "ls -l" | ./hsh
+
+.SH BUILTIN COMMANDS
+
+This section lists the builtin commands which are builtin because they need to perform some operation that can't be performed by a separate process.
+
+.SS cd
+- change directory
+
+.SS env
+- Prints out the current environment.
+
+.SS exit [exitstatus]
+- Terminate the shell process.  If exitstatus is given it is used as the exit status of the shell; otherwise the exit status will be 0.
+
+.SS Handling Ctrl+D
+- The simple shell will be terminated.
+
+.SH BUGS
+"21 Savage - a lot ft. J. Cole"
+Please report any issues to the authors.
+
+.SH AUTHOR
+
+David Alejandro Corredor Mora<vidmore8@gmail.com>
+
+Santiago Efrain Martinez Leon <sntgmtnz@gmail.com>
+
+.SH SEE ALSO
+sh
