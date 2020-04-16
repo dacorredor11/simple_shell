@@ -180,7 +180,7 @@ int validate_buffer(char *buffer, char *exec, int err_counter)
 			free(buffer);
 			return (-1);
 		}
-		else if (token_n == 1);
+		else if (token_n == 1)
 		{
 			free(buffer), exit(0);
 		}
