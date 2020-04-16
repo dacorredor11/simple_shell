@@ -9,20 +9,18 @@
 
 int main(int argc, char *argv[])
 {
-	int num = 0;
 	char **values = NULL;
 
 	if (argc != 1)
 	{
-		num = argc;
 		values = argv;
 
-		lexer(num, values);
+		lexer(values);
 	}
 	else
 	{
 		values = argv;
-		return (lexer(num, values));
+		return (lexer(values));
 	}
 	return (EXIT_SUCCESS);
 }

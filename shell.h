@@ -90,7 +90,7 @@ void print_exit_code(char *exec, int num, char *error);
 
 /* Built in functions */
 
-int exito(char *buffer, char *exec, int *err_counter);
+int exito(char *buffer, char *exec, int err_counter);
 
 /* End */
 
@@ -99,8 +99,8 @@ int exito(char *buffer, char *exec, int *err_counter);
 char *disarm_buffer(char *buffer);
 int count_buffer(char *buffer);
 char *make_string(char **disarmed);
-char *create_buffer(char **string);
 char **create_exec_buffer(char *buffer);
+int validate_space(char *string);
 int validate_buffer(char *buffer, char *exec, int err_counter);
 int exec_command(char **buffer, char *exec, int err_counter);
 
@@ -111,7 +111,7 @@ int exec_command(char **buffer, char *exec, int err_counter);
 path_t *get_path(void);
 size_t check_path(const path_t *head, char *str2);
 size_t exec_path(const path_t *head, char *str2);
-int lexer(int num, char *values[]);
+int lexer(char *values[]);
 void get_dir(void);
 char *_getenv(char *envp);
 int validate_command(char **buffer, char *exec, int err_counter);

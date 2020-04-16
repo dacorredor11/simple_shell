@@ -8,7 +8,7 @@
  * Return: void
  */
 
-int lexer(int num, char *values[])
+int lexer(char *values[])
 {
 	char *buffer = NULL, *handler = NULL;
 	char **path = NULL;
@@ -16,37 +16,35 @@ int lexer(int num, char *values[])
 	ssize_t characters = 0;
 	int err_counter = 0, erno = 0;
 
-	if (num == 0)
+	if (isatty(STDIN_FILENO))
+		write(STDOUT_FILENO, "#cisfun$ ", 9);
+	signal(SIGINT, &signal_handler);
+
+	while ((characters = getline(&buffer, &bufsize, stdin)))
 	{
+		if (characters == EOF)
+			eof(buffer, erno);
+		else if (_strcmp(buffer, "\n") != 0)
+		{
+			handler = _strtok(buffer, "\n\t\r");
+			erno = validate_buffer(buffer, values[0], err_counter);
+			if (erno != 2 && erno != 1)
+			{
+				err_counter++, path = create_exec_buffer(handler);
+				erno = validate_command(path, values[0], err_counter);
+				free(path), free(buffer);
+			}
+		}
+		else
+			free(buffer);
+		fflush(stdin);
+		bufsize = 0;
+		buffer = NULL;
+		handler = NULL;
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "#cisfun$ ", 9);
-		signal(SIGINT, &signal_handler);
-
-		while ((characters = getline(&buffer, &bufsize, stdin)))
-		{
-			if (characters == EOF)
-				eof(buffer, erno);
-			else if (_strcmp(buffer, "\n") != 0)
-			{
-				handler = _strtok(buffer, "\n\t\r");
-				erno = validate_buffer(buffer, values[0], err_counter);
-				if (erno != 2 && erno != 1)
-				{
-					err_counter++, path = create_exec_buffer(handler);
-					erno = validate_command(path, values[0], err_counter);
-					free(path), free(buffer);
-				}
-			}
-			else
-				free(buffer);
-			fflush(stdin);
-			bufsize = 0;
-			buffer = NULL;
-			handler = NULL;
-			if (isatty(STDIN_FILENO))
-				write(STDOUT_FILENO, "#cisfun$ ", 9);
-		}
 	}
+
 	return (erno);
 }
 

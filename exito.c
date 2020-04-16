@@ -8,7 +8,7 @@
  * Description: verifies is call to exit and brings error status
  * Return: error number
  */
-int exito(char *buffer, char *exec, int *err_counter)
+int exito(char *buffer, char *exec, int err_counter)
 {
 	char *handler = NULL;
 	int status = 0, i;
