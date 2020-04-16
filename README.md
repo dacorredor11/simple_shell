@@ -28,19 +28,22 @@ The hsh is a simplified command line interpreter for the system, or shell, an ap
 * `_memcpy` - copies memory area
 * `free_list` - Function that frees a list
 * [string_funcs.c](string_funcs.c) - functions related to string manipulation
-* `_putchar` - writes the character c to stdout
-* `_puts` - writes the character c to stdout
 * `_strlen` - return the length of the string
 * `_strcpy` - Copy the string `src` to `dest`
 * `_strcmp` - Compare two strings
 * `_strncmp` - Compare n bytes of two strings
+* [string_funcs_2.c](string_funcs.c) - functions related to string manipulation
+* `_strtok` - Split a string up into tokens
+* `_strtok_r` - extract tokens from strings & hold index ptr (thread safe).
+* [string_funcs_3.c](string_funcs.c) - functions related to string manipulation
 * `_strchr` - locate character in a string
 * `_strcspn` - search a string for a set of bytes
 * `_strspn` - gets length of a prefix substring
 * `_strdup` - duplicate a specific number of bytes from a string
 * `_strbrk` - search a string for any of a set of bytes
-* `_strtok` - Split a string up into tokens
-* `_strtok_r` - extract tokens from strings & hold index ptr (thread safe).
+* [string_funcs_4.c](string_funcs.c) - functions related to string manipulation
+* `_putchar` - writes the character c to stdout
+* `_puts` - writes the character c to stdout
 * `word_count` - counts words given a char delimiter
 * `_strncat` - concatenates two strings by n bytes
 * `str_concat` - function that concatenates two strings
@@ -51,7 +54,6 @@ The hsh is a simplified command line interpreter for the system, or shell, an ap
 * `lexer` - Scan for standard input from terminal
 * `validate_command` - Function that validates the command
 * `get_route` - Function that brings the route of a command
-* [executer.c](executer.c) - Yacc (Yet Another Compiler-Compiler) functions related to executing commands
 * [getline.c](getline.c) - custom getline approach
 * `_getline` - delimited string input
 * `_fgets` - input of characters and strings
