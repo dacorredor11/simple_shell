@@ -38,6 +38,7 @@ int lexer(int num, char *values[])
 					err_counter++;
 					path = create_exec_buffer(handler);
 					erno = validate_command(path, values[0], err_counter);
+					printf("error = %d\n", erno);
 					free(path);
 					free(buffer);
 				}
@@ -83,11 +84,14 @@ int validate_command(char **buffer, char *exec, int err_counter)
 			if (!execve(command, buffer, environ))
 			{
 				print_error(exec, err_counter, command);
-				return (2);
+				exit(2);
 			}
 		}
 		else
+		{
 			wait(&status);
+			return (status >> 8);
+		}
 	}
 	else
 	{
@@ -100,7 +104,7 @@ int validate_command(char **buffer, char *exec, int err_counter)
 				if (!execve(command, buffer, environ))
 				{
 					print_error(exec, err_counter, command), free(command);
-					return (126);
+					return (2);
 				}
 				else
 					free(command);

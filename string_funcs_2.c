@@ -141,7 +141,7 @@ char *str_concat(char *s1, char *s2)
 	size_s2 = _strlen(s2);
 	total_size = size_s1 + size_s2;
 
-	new_arr = malloc((total_size * sizeof(char)) + 1);
+	new_arr = malloc((total_size * sizeof(char)) + 2);
 	if (new_arr == NULL)
 	{
 		return (NULL);
