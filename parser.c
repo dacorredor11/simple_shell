@@ -110,7 +110,6 @@ char *get_route(char *command)
 
 	while (copy != NULL)
 	{
-
 		route = str_concat(copy->route, command);
 
 		if (stat(route, &buf) == 0)
@@ -150,35 +149,47 @@ char *get_route(char *command)
 int validate_buffer(char *buffer, char *exec, int err_counter)
 {
 	char *handler = NULL;
-	int status = 0;
+	int status = 0, token_n = 0;
 	char **bi_string = NULL;
 
 	handler = _strtok(buffer, "\n\t\r");
 	if (err_counter == 0)
 		err_counter++;
-	if (count_buffer(handler) == 2)
+
+	if (_strncmp(buffer, "exit", 4) == 0)
 	{
-		bi_string = create_exec_buffer(handler);
+		token_n = count_buffer(handler);
 
-		if ((_strcmp(bi_string[0], "exit") == 0) && (_atoi(bi_string[1]) > 0))
+		if ( token_n == 2)
 		{
-			status = _atoi(bi_string[1]);
-			free(buffer), free(bi_string), exit(status);
+			bi_string = create_exec_buffer(handler);
+
+			if ((_strcmp(bi_string[0], "exit") == 0) && (_atoi(bi_string[1]) >= 0))
+			{
+				status = _atoi(bi_string[1]);
+				free(buffer), free(bi_string), exit(status);
+			}
+			else
+			{
+				print_exit_code(exec, err_counter, bi_string[1]);
+				free(buffer);
+				free(bi_string);
+				return (2);
+			}
 		}
-		else
+		else if (token_n > 2)
 		{
-			print_exit_code(exec, err_counter, bi_string[1]);
+			perror("Failed: Command syntax: exit status\n");
 			free(buffer);
-			free(bi_string);
-
-			return (2);
+			return (-1);
+		}
+		else if (token_n == 1)
+		{
+			free(buffer), exit(0);
 		}
 	}
 	else
 	{
-		if (_strcmp(buffer, "exit") == 0)
-			free(buffer), exit(0);
-
 		if (_strcmp(buffer, "env") == 0)
 		{
 			free(buffer), env();
