@@ -72,23 +72,6 @@ char *_getenv(char *envp)
 }
 
 /**
- * get_dir - get current working directory
- *
- * Description: gets absolute pathname that is the
- * current working directory of the calling process
- * Return: void
- */
-
-/* void get_dir(void)
-{
-	char cwd[1024];
-
-	getcwd(cwd, sizeof(cwd));
-
-	printf("\n%s", cwd);
-} */
-
-/**
  * get_path - return the pathname
  *
  * Description: read between delimiter ":" in the string named by PATH

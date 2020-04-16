@@ -103,6 +103,7 @@ char *make_string(char **disarmed);
 char *create_buffer(char **string);
 char **create_exec_buffer(char *buffer);
 int validate_buffer(char *buffer);
+int exec_command(char **buffer, char *exec, int err_counter);
 
 /* End */
 

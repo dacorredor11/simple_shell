@@ -32,25 +32,3 @@ path_t *add_node(path_t **head, char *str)
 
 	return (new);
 }
-
-/**
- * print_list - Function to print a simple lisst
- * @h: head of the simple list
- * Return: Size of the list
- */
-
-/* size_t print_list(const path_t *h)
-{
-	size_t counter = 0;
-
-	while (h != NULL)
-	{
-		if (h->route != NULL)
-			printf("%s\n", h->route);
-		else
-			printf("[0] (nil)\n");
-		h = h->next;
-		counter++;
-	}
-	return (counter);
-} */

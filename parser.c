@@ -18,34 +18,27 @@ int lexer(int num, char *values[])
 
 	if (num == 0)
 	{
-		(void)num;
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "#cisfun$ ", 9);
 		signal(SIGINT, &signal_handler);
+
 		while ((characters = getline(&buffer, &bufsize, stdin)))
 		{
-			signal(SIGINT, &signal_handler);
 			if (characters == EOF)
 				eof(buffer, erno);
 			else if (_strcmp(buffer, "\n") != 0)
 			{
 				handler = _strtok(buffer, "\n\t\r\0");
-				if (validate_buffer(buffer))
+				
+				if (!validate_buffer(buffer))
 				{
-				}
-				else
-				{
-					err_counter++;
-					path = create_exec_buffer(handler);
+					err_counter++, path = create_exec_buffer(handler);
 					erno = validate_command(path, values[0], err_counter);
-					free(path);
-					free(buffer);
+					free(path), free(buffer);
 				}
 			}
 			else
-			{
 				free(buffer);
-			}
 			fflush(stdin);
 			bufsize = 0;
 			buffer = NULL;
@@ -94,31 +87,7 @@ int validate_command(char **buffer, char *exec, int err_counter)
 	}
 	else
 	{
-		command = get_route(buffer[0]);
-		if (command)
-		{
-			child = fork();
-			if (child == 0)
-			{
-				if (!execve(command, buffer, environ))
-				{
-					print_error(exec, err_counter, command), free(command);
-					exit(2);
-				}
-				else
-					free(command);
-			}
-			else
-			{
-				wait(&status), free(command);
-				return (status >> 8);
-			}
-		}
-		else
-		{
-			print_error_code(exec, err_counter, buffer[0]);
-			return (127);
-		}
+		return (exec_command(buffer, exec, err_counter));
 	}
 	return (0);
 }
@@ -172,6 +141,7 @@ char *get_route(char *command)
  * Description: checks if first token is exit or the env builtin cmd
  * Return: 0 on exit, 1 on env print
  */
+
 int validate_buffer(char *buffer)
 {
 	if (_strcmp(buffer, "exit") == 0)
@@ -183,5 +153,50 @@ int validate_buffer(char *buffer)
 		return (1);
 	}
 
+	return (0);
+}
+
+
+/**
+ * exec_command - Function that executes a command
+ * @buffer: string buffer token to check
+ * @exec: executable file
+ * @err_counter: error counter
+ * Description: search in the path the command and executed
+ * Return: 0 on exit, 1 on env print
+ */
+
+int exec_command(char **buffer, char *exec, int err_counter)
+{
+	pid_t child;
+	char *command = NULL;
+	int status = 0;
+
+	command = get_route(buffer[0]);
+
+		if (command)
+		{
+			child = fork();
+			if (child == 0)
+			{
+				if (!execve(command, buffer, environ))
+				{
+					print_error(exec, err_counter, command), free(command);
+					exit(2);
+				}
+				else
+					free(command);
+			}
+			else
+			{
+				wait(&status), free(command);
+				return (status >> 8);
+			}
+		}
+		else
+		{
+			print_error_code(exec, err_counter, buffer[0]);
+			return (127);
+		}
 	return (0);
 }
