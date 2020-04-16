@@ -33,3 +33,12 @@ void print_error(char *exec, int num, char *error)
 	sprintf(string, "%s: %d: %s", exec, num, error);
 	perror(string);
 }
+
+void print_error_code(char *exec, int num, char *error)
+{
+	char string[1092];
+
+	sprintf(string, "%s: %d: %s: not found\n", exec, num, error);
+	write(STDERR_FILENO, string, _strlen(string));
+}
+

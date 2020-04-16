@@ -82,6 +82,7 @@ void print_error(char *exec, int num, char *error);
 
 void signal_handler(int sig);
 void eof(char *buffer);
+void print_error_code(char *exec, int num, char *error);
 
 /* End  */
 

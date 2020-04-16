@@ -79,7 +79,7 @@ int validate_command(char **buffer, char *exec, int err_counter)
 				print_error(exec, err_counter, command);
 		}
 		else
-			wait(&status);
+			wait(&status), exit(status);
 	}
 	else
 	{
@@ -90,21 +90,16 @@ int validate_command(char **buffer, char *exec, int err_counter)
 			if (child == 0)
 			{
 				if (!execve(command, buffer, environ))
-				{
 					print_error(exec, err_counter, command), free(command);
-					return (126);
-				}
 				else
 					free(command);
 			}
 			else
-				wait(&status), free(command);
+				wait(&status), free(command), exit(status);
 		}
 		else
-		{
-			print_error(exec, err_counter, buffer[0]);
-			return (127);
-		}
+			print_error_code(exec, err_counter, buffer[0]);
+
 	}
 	return (0);
 }
