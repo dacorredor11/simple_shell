@@ -60,7 +60,7 @@ char *_strdup(char *str);
 char *e_strdup(char *os, char *str);
 int _strncmp(const char *first, const char *last, size_t count);
 int _atoi(char *s);
-
+int _isdigit(int c);
 /* End */
 
 /* Structs functions */
@@ -90,10 +90,7 @@ void print_exit_code(char *exec, int num, char *error);
 
 /* Built in functions */
 
-int arrlen(char **arrangement);
-int exito(char **parsed);
-void _cd(char *av[]);
-int (*check_builtin(char *command))();
+int exito(char *buffer, char *exec, int *err_counter);
 
 /* End */
 
