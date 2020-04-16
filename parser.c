@@ -27,6 +27,7 @@ int lexer(char *values[])
 		else if (_strcmp(buffer, "\n") != 0)
 		{
 			handler = _strtok(buffer, "\n\t\r");
+			printf("%d", _strlen(handler));
 			erno = validate_buffer(buffer, values[0], err_counter);
 			if (erno != 2 && erno != 1)
 			{
