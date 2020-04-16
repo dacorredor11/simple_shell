@@ -117,9 +117,9 @@ int validate_command(char **buffer, char *exec, int err_counter)
 		else
 		{
 			print_error_code(exec, err_counter, buffer[0]);
-			return(127);
+			return (127);
 		}
-	}	
+	}
 	return (0);
 }
 

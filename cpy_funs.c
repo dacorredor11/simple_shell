@@ -112,7 +112,6 @@ path_t *get_path(void)
 		route = _strtok(NULL, ":");
 	}
 	free(copy);
-	
 	return (head);
 }
 
