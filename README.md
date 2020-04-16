@@ -10,10 +10,6 @@ The hsh is a simplified command line interpreter for the system, or shell, an ap
 * [man_1_simple_shell](man_1_simple_shell) - Manual page for the simple_shell
 * [shell.h](shell.h) - program header file
 * [main.c](main.c) - Main shell file function
-* [builtins.c](builtins.c) - major builtin functions
-* `check_builtin` - checks if command is a builtin
-* `arrlen` - finds size of array
-* `exito` - if user types 'exit' exit shell
 * [buffer_handling.c](buffer_handling.c) - functions related to store input
 * `count_buffer` - Counts the number of words in a string
 * `create_buffer` - creates a string with a given bidimensional array
@@ -54,12 +50,7 @@ The hsh is a simplified command line interpreter for the system, or shell, an ap
 * `lexer` - Scan for standard input from terminal
 * `validate_command` - Function that validates the command
 * `get_route` - Function that brings the route of a command
-* [getline.c](getline.c) - custom getline approach
-* `_getline` - delimited string input
-* `_fgets` - input of characters and strings
-* `_getc` - reads char from stream and returns it as an int
-* `_fgetc` - input of characters and strings
-* [cpy_funcs.c](cpy_funcs.c) - functions related to environment
+* [cpy_funs.c](cpy_funcs.c) - functions related to environment
 * `_getenv` - get an environment variable
 * `get_dir` - get current working directory
 * `get_path` - return the pathname
