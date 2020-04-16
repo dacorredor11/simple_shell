@@ -66,7 +66,7 @@ The hsh is a simplified command line interpreter for the system, or shell, an ap
 simple_shell is designed to run in the `Ubuntu 14.04 LTS` linux environment and to be compiled using the GNU compiler collection v. `gcc 4.8.4` with flags`-Wall, -Werror, -Wextra, and -pedantic.`
 
 Only allowed to use the following functions and system calls:
-
+```
 access (man 2 access)
 chdir (man 2 chdir)
 close (man 2 close)
@@ -95,7 +95,7 @@ wait3 (man 2 wait3)
 wait4 (man 2 wait4)
 write (man 2 write)
 _exit (man 2 _exit)
-
+```
 ## Usage
 Clone this repository onto your local machine, compile with the flags listed below
 sh
