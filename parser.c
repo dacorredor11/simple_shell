@@ -113,11 +113,8 @@ char *get_route(char *command)
 
 		if (stat(route, &buf) == 0)
 			break;
-		else
-		{
-			free(route);
-			route = NULL;
-		}
+		free(route);
+		route = NULL;
 		copy = copy->next;
 	}
 	if (route)
@@ -147,57 +144,20 @@ char *get_route(char *command)
 
 int validate_buffer(char *buffer, char *exec, int err_counter)
 {
-	char *handler = NULL;
-	int status = 0, token_n = 0;
-	char **bi_string = NULL;
-
-	handler = _strtok(buffer, "\n\t\r");
-	if (err_counter == 0)
-		err_counter++;
+	int ex_call;
 
 	if (_strncmp(buffer, "exit", 4) == 0)
 	{
-		token_n = count_buffer(handler);
-
-		if (token_n == 2)
-		{
-			bi_string = create_exec_buffer(handler);
-
-			if ((_strcmp(bi_string[0], "exit") == 0) && (_atoi(bi_string[1]) >= 0))
-			{
-				status = _atoi(bi_string[1]);
-				free(buffer), free(bi_string), exit(status);
-			}
-			else
-			{
-				print_exit_code(exec, err_counter, bi_string[1]);
-				free(buffer);
-				free(bi_string);
-				return (2);
-			}
-		}
-		else if (token_n > 2)
-		{
-			perror("Failed: Command syntax: exit status\n");
-			free(buffer);
-			return (-1);
-		}
-		else if (token_n == 1)
-		{
-			free(buffer), exit(0);
-		}
+		ex_call = exito(buffer, exec, err_counter);
+		free(buffer), exit(ex_call);
 	}
-	else
+	if (_strcmp(buffer, "env") == 0)
 	{
-		if (_strcmp(buffer, "env") == 0)
-		{
-			free(buffer), env();
-			return (1);
-		}
+		free(buffer), env();
+		return (1);
 	}
 	return (0);
 }
-
 /**
  * exec_command - Function that executes a command
  * @buffer: string buffer token to check
