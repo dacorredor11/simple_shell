@@ -103,13 +103,16 @@ int validate_command(char **buffer, char *exec, int err_counter)
 				if (!execve(command, buffer, environ))
 				{
 					print_error(exec, err_counter, command), free(command);
-					return (2);
+					exit(2);
 				}
 				else
 					free(command);
 			}
 			else
+			{
 				wait(&status), free(command);
+				return (status >> 8);
+			}
 		}
 		else
 		{
