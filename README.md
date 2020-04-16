@@ -104,18 +104,18 @@ cd simple_shell
 gcc -Wall -Werror -Wextra -pedantic *.c -o hsh
 
 Run the simple shell
-sh
+```sh
 ./hsh
-
+```
 then you can use commands like in sh
-sh
+```sh
 $ ls -al
-
+```
 To exit the simple shell
-sh
+```sh
 exit
 "or in keyboard Ctrl + D"
-
+```
 ## Bugs
 <img src="https://media.breitbart.com/media/2019/06/AP_060502025509-640x480.jpg" align="middle" width="100" height="100">
 
