@@ -17,6 +17,8 @@ The hsh is a simplified command line interpreter for the system, or shell, an ap
 * [signal_handler.c](signal_handler.c) - functions related to reading signals
 * `signal_handler` - handles signals from keyboard interrupts
 * `eof` - end of file declaration
+* `print_error` - prints & perror the error msg
+* `print_error_code` - prints & write the error msg
 * [memory_funcs.c](memory_funcs.c) - memory allocation functions
 * `malloc_checked` - allocates memory using malloc
 * `_realloc` - reallocates a memory block using malloc and free.
@@ -50,10 +52,12 @@ The hsh is a simplified command line interpreter for the system, or shell, an ap
 * `lexer` - Scan for standard input from terminal
 * `validate_command` - Function that validates the command
 * `get_route` - Function that brings the route of a command
-* [cpy_funs.c](cpy_funcs.c) - functions related to environment
+* `validate_buffer` - Function that validates if buffer brings exit or env
+* [cpy_funs.c](cpy_funs.c) - functions related to environment
 * `_getenv` - get an environment variable
 * `get_dir` - get current working directory
 * `get_path` - return the pathname
+* `env` - writes environ
 
 ## Requirements
 simple_shell is designed to run in the `Ubuntu 14.04 LTS` linux environment and to be compiled using the GNU compiler collection v. `gcc 4.8.4` with flags`-Wall, -Werror, -Wextra, and -pedantic.`
