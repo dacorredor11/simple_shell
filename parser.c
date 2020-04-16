@@ -28,7 +28,7 @@ int lexer(int num, char *values[])
 				eof(buffer, erno);
 			else if (_strcmp(buffer, "\n") != 0)
 			{
-				handler = _strtok(buffer, "\n\t\r");
+				handler = _strtok(buffer, "\n\t\r\0");
 				erno = validate_buffer(buffer, values[0], err_counter);
 				if (erno != 2 && erno != 1)
 				{
@@ -66,6 +66,7 @@ int validate_command(char **buffer, char *exec, int err_counter)
 	int status = 0;
 
 	command = buffer[0];
+	command = str_concat(command, "\0");
 	if (stat(command, &buf) == 0)
 	{
 		child = fork();
@@ -87,8 +88,10 @@ int validate_command(char **buffer, char *exec, int err_counter)
 	}
 	else
 	{
+		free(command);
 		return (exec_command(buffer, exec, err_counter));
 	}
+	free(command);
 	return (0);
 }
 
