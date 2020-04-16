@@ -26,31 +26,6 @@ int count_buffer(char *buffer)
 }
 
 /**
- * create_buffer - creates a string with a given bidimensional array
- * @string: bidimensional array
- * Return: String separated by spaces
- */
-
-int validate_space(char *string, char *buffer)
-{
-	char *copy = NULL;
-
-	copy = _strdup(buffer);
-
-	string = _strtok(copy, " ");
-
-	if (string == NULL)
-	{
-		free(copy);
-
-		return (1);
-	}
-	free(copy);
-
-	return (0);
-}
-
-/**
  * create_exec_buffer - creates a bidimensional array of strings
  * @buffer: string given by the user
  * Return: The bidimensional array

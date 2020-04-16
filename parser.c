@@ -2,7 +2,6 @@
 
 /**
  * lexer - Scan for standard input from terminal
- * @num: number of parameter
  * @values: parameters
  * Description: first stage of lexical analyzer
  * Return: void
@@ -27,17 +26,14 @@ int lexer(char *values[])
 		else if (_strcmp(buffer, "\n") != 0)
 		{
 			handler = _strtok(buffer, "\n\t\r");
-			if (!validate_space(handler, buffer))
+			erno = validate_buffer(buffer, values[0], err_counter);
+			if (erno != 2 && erno != 1)
 			{
-				erno = validate_buffer(buffer, values[0], err_counter);
-				if (erno != 2 && erno != 1)
-				{
-					err_counter++, path = create_exec_buffer(handler);
+				err_counter++, path = create_exec_buffer(handler);
+				if (path[0] != NULL)
 					erno = validate_command(path, values[0], err_counter);
-					free(path), free(buffer);
-				}
+				free(path), free(buffer);
 			}
-			free(buffer);
 		}
 		else
 			free(buffer);
@@ -116,11 +112,9 @@ char *get_route(char *command)
 
 		if (stat(route, &buf) == 0)
 			break;
-		else
-		{
-			free(route);
-			route = NULL;
-		}
+
+		free(route);
+		route = NULL;
 		copy = copy->next;
 	}
 	if (route)
