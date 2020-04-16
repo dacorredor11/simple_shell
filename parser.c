@@ -38,7 +38,6 @@ int lexer(int num, char *values[])
 					err_counter++;
 					path = create_exec_buffer(handler);
 					erno = validate_command(path, values[0], err_counter);
-					printf("error = %d\n", erno);
 					free(path);
 					free(buffer);
 				}
