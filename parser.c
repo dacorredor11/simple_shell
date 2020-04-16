@@ -8,7 +8,7 @@
  * Return: void
  */
 
-int lexer(int num, char *values[])
+int lexer(char *values[])
 {
 	char *buffer = NULL, *handler = NULL;
 	char **path = NULL;
@@ -16,37 +16,35 @@ int lexer(int num, char *values[])
 	ssize_t characters = 0;
 	int err_counter = 0, erno = 0;
 
-	if (num == 0)
+	if (isatty(STDIN_FILENO))
+		write(STDOUT_FILENO, "#cisfun$ ", 9);
+	signal(SIGINT, &signal_handler);
+
+	while ((characters = getline(&buffer, &bufsize, stdin)))
 	{
+		if (characters == EOF)
+			eof(buffer, erno);
+		else if (_strcmp(buffer, "\n") != 0)
+		{
+			handler = _strtok(buffer, "\n\t\r");
+			erno = validate_buffer(buffer, values[0], err_counter);
+			if (erno != 2 && erno != 1)
+			{
+				err_counter++, path = create_exec_buffer(handler);
+				erno = validate_command(path, values[0], err_counter);
+				free(path), free(buffer);
+			}
+		}
+		else
+			free(buffer);
+		fflush(stdin);
+		bufsize = 0;
+		buffer = NULL;
+		handler = NULL;
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "#cisfun$ ", 9);
-		signal(SIGINT, &signal_handler);
-
-		while ((characters = getline(&buffer, &bufsize, stdin)))
-		{
-			if (characters == EOF)
-				eof(buffer, erno);
-			else if (_strcmp(buffer, "\n") != 0)
-			{
-				handler = _strtok(buffer, "\n\t\r\0");
-				erno = validate_buffer(buffer, values[0], err_counter);
-				if (erno != 2 && erno != 1)
-				{
-					err_counter++, path = create_exec_buffer(handler);
-					erno = validate_command(path, values[0], err_counter);
-					free(path), free(buffer);
-				}
-			}
-			else
-				free(buffer);
-			fflush(stdin);
-			bufsize = 0;
-			buffer = NULL;
-			handler = NULL;
-			if (isatty(STDIN_FILENO))
-				write(STDOUT_FILENO, "#cisfun$ ", 9);
-		}
 	}
+
 	return (erno);
 }
 
@@ -66,7 +64,6 @@ int validate_command(char **buffer, char *exec, int err_counter)
 	int status = 0;
 
 	command = buffer[0];
-	command = str_concat(command, "\0");
 	if (stat(command, &buf) == 0)
 	{
 		child = fork();
@@ -88,10 +85,8 @@ int validate_command(char **buffer, char *exec, int err_counter)
 	}
 	else
 	{
-		free(command);
 		return (exec_command(buffer, exec, err_counter));
 	}
-	free(command);
 	return (0);
 }
 
@@ -163,7 +158,7 @@ int validate_buffer(char *buffer, char *exec, int err_counter)
 	{
 		token_n = count_buffer(handler);
 
-		if ( token_n == 2)
+		if (token_n == 2)
 		{
 			bi_string = create_exec_buffer(handler);
 
