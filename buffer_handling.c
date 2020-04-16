@@ -31,8 +31,22 @@ int count_buffer(char *buffer)
  * Return: String separated by spaces
  */
 
-int validate_space(char *string)
+int validate_space(char *string, char *buffer)
 {
+	char *copy = NULL;
+
+	copy = _strdup(buffer);
+
+	string = _strtok(copy, " ");
+
+	if (string == NULL)
+	{
+		free(copy);
+
+		return (1);
+	}
+	free(copy);
+
 	return (0);
 }
 

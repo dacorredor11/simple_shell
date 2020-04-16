@@ -27,14 +27,17 @@ int lexer(char *values[])
 		else if (_strcmp(buffer, "\n") != 0)
 		{
 			handler = _strtok(buffer, "\n\t\r");
-			printf("%d", _strlen(handler));
-			erno = validate_buffer(buffer, values[0], err_counter);
-			if (erno != 2 && erno != 1)
+			if (!validate_space(handler, buffer))
 			{
-				err_counter++, path = create_exec_buffer(handler);
-				erno = validate_command(path, values[0], err_counter);
-				free(path), free(buffer);
+				erno = validate_buffer(buffer, values[0], err_counter);
+				if (erno != 2 && erno != 1)
+				{
+					err_counter++, path = create_exec_buffer(handler);
+					erno = validate_command(path, values[0], err_counter);
+					free(path), free(buffer);
+				}
 			}
+			free(buffer);
 		}
 		else
 			free(buffer);
@@ -113,8 +116,11 @@ char *get_route(char *command)
 
 		if (stat(route, &buf) == 0)
 			break;
-		free(route);
-		route = NULL;
+		else
+		{
+			free(route);
+			route = NULL;
+		}
 		copy = copy->next;
 	}
 	if (route)
@@ -158,6 +164,7 @@ int validate_buffer(char *buffer, char *exec, int err_counter)
 	}
 	return (0);
 }
+
 /**
  * exec_command - Function that executes a command
  * @buffer: string buffer token to check

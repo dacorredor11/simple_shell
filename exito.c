@@ -23,20 +23,20 @@ int exito(char *buffer, char *exec, int err_counter)
 	if (bi_string[1] == NULL)
 		return (0);
 
-	for (i = 0; bi_string[1]; i++);
+	for (i = 0; bi_string[1]; i++)
 	{
 		if (_isdigit(bi_string[1][i]) == 1)
 			status = _atoi(bi_string[1]);
 		else
 		{
-			print_exit_code(exec, err_counter, bi_string[0], bi_string[1]);
+			print_exit_code(exec, err_counter, bi_string[1]);
 			free(buffer);
 			free(bi_string);
 			return (2);
 		}
 		if (status < 0)
 		{
-			print_exit_code(exec, err_counter, bi_string[0], bi_string[1], status);
+			print_exit_code(exec, err_counter, bi_string[1]);
 			free(buffer);
 			free(bi_string);
 			status = 2;

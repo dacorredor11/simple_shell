@@ -100,7 +100,7 @@ char *disarm_buffer(char *buffer);
 int count_buffer(char *buffer);
 char *make_string(char **disarmed);
 char **create_exec_buffer(char *buffer);
-int validate_space(char *string);
+int validate_space(char *string, char *buffer);
 int validate_buffer(char *buffer, char *exec, int err_counter);
 int exec_command(char **buffer, char *exec, int err_counter);
 
