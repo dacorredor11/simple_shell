@@ -98,11 +98,11 @@ _exit (man 2 _exit)
 ```
 ## Usage
 Clone this repository onto your local machine, compile with the flags listed below
-sh
+```sh
 git clone https://github.com/VIDMORE/simple_shell.git
 cd simple_shell
 gcc -Wall -Werror -Wextra -pedantic *.c -o hsh
-
+```
 Run the simple shell
 ```sh
 ./hsh
@@ -122,7 +122,7 @@ exit
 "21 Savage - a lot ft. J. Cole"
 Please report any issues to the authors.
 ## Authors
-David Alejandro Corredor Mora<vidmore8@gmail.com>
+David Alejandro Corredor Mora <vidmore8@gmail.com>
 
 Santiago Efrain Martinez Leon <sntgmtnz@gmail.com>
 ## License
