@@ -59,6 +59,7 @@ size_t _strcspn(const char *s1, const char *s2);
 char *_strdup(char *str);
 char *e_strdup(char *os, char *str);
 int _strncmp(const char *first, const char *last, size_t count);
+int _atoi(char *s);
 
 /* End */
 
@@ -83,6 +84,7 @@ void print_error(char *exec, int num, char *error);
 void signal_handler(int sig);
 void eof(char *buffer, int erno);
 void print_error_code(char *exec, int num, char *error);
+void print_exit_code(char *exec, int num, char *error);
 
 /* End  */
 
@@ -102,7 +104,7 @@ int count_buffer(char *buffer);
 char *make_string(char **disarmed);
 char *create_buffer(char **string);
 char **create_exec_buffer(char *buffer);
-int validate_buffer(char *buffer);
+int validate_buffer(char *buffer, char *exec, int err_counter);
 int exec_command(char **buffer, char *exec, int err_counter);
 
 /* End */

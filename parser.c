@@ -28,9 +28,9 @@ int lexer(int num, char *values[])
 				eof(buffer, erno);
 			else if (_strcmp(buffer, "\n") != 0)
 			{
-				handler = _strtok(buffer, "\n\t\r\0");
-
-				if (!validate_buffer(buffer))
+				handler = _strtok(buffer, "\n\t\r");
+				erno = validate_buffer(buffer, values[0], err_counter);
+				if (erno != 2 && erno != 1)
 				{
 					err_counter++, path = create_exec_buffer(handler);
 					erno = validate_command(path, values[0], err_counter);
@@ -142,20 +142,46 @@ char *get_route(char *command)
  * Return: 0 on exit, 1 on env print
  */
 
-int validate_buffer(char *buffer)
+int validate_buffer(char *buffer, char *exec, int err_counter)
 {
-	if (_strcmp(buffer, "exit") == 0)
-		free(buffer), exit(0);
+	char *handler = NULL;
+	int status = 0;
+	char **bi_string = NULL;
 
-	if (_strcmp(buffer, "env") == 0)
+	handler = _strtok(buffer, "\n\t\r");
+	if(err_counter == 0)
+		err_counter++;
+	if (count_buffer(handler) == 2)
 	{
-		free(buffer), env();
-		return (1);
-	}
+		bi_string = create_exec_buffer(handler);
 
+		if ((_strcmp(bi_string[0], "exit") == 0) && (_atoi(bi_string[1]) > 0))
+		{
+			status = _atoi(bi_string[1]);
+			free(buffer), free(bi_string), exit(status);
+		}
+		else
+		{
+			print_exit_code(exec, err_counter, bi_string[1]);
+			free(buffer);
+			free(bi_string);
+                	return (2);
+		}
+		
+	}
+	else
+	{
+		if (_strcmp(buffer, "exit") == 0)
+			free(buffer), exit(0);
+
+		if (_strcmp(buffer, "env") == 0)
+		{
+			free(buffer), env();
+			return (1);
+		}
+	}
 	return (0);
 }
-
 
 /**
  * exec_command - Function that executes a command
@@ -174,29 +200,29 @@ int exec_command(char **buffer, char *exec, int err_counter)
 
 	command = get_route(buffer[0]);
 
-		if (command)
+	if (command)
+	{
+		child = fork();
+		if (child == 0)
 		{
-			child = fork();
-			if (child == 0)
+			if (!execve(command, buffer, environ))
 			{
-				if (!execve(command, buffer, environ))
-				{
-					print_error(exec, err_counter, command), free(command);
-					exit(2);
-				}
-				else
-					free(command);
+				print_error(exec, err_counter, command), free(command);
+				exit(2);
 			}
 			else
-			{
-				wait(&status), free(command);
-				return (status >> 8);
-			}
+				free(command);
 		}
 		else
 		{
-			print_error_code(exec, err_counter, buffer[0]);
-			return (127);
+			wait(&status), free(command);
+			return (status >> 8);
 		}
+	}
+	else
+	{
+		print_error_code(exec, err_counter, buffer[0]);
+		return (127);
+	}
 	return (0);
 }

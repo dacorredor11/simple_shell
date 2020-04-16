@@ -57,3 +57,20 @@ void print_error_code(char *exec, int num, char *error)
 	sprintf(string, "%s: %d: %s: not found\n", exec, num, error);
 	write(STDERR_FILENO, string, _strlen(string));
 }
+
+
+/**
+ * print_exit_code - writes the error
+ * @exec: token asked for
+ * @num: errno
+ * @error: error msg
+ * Description: print a system error message
+ * Return: void
+ */
+void print_exit_code(char *exec, int num, char *error)
+{
+	char string[1092];
+
+	sprintf(string, "%s: %d: exit: Illegal number: %s\n", exec, num, error);
+	write(STDERR_FILENO, string, _strlen(string));
+}
