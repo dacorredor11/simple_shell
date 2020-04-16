@@ -115,6 +115,12 @@ path_t *get_path(void)
 	return (head);
 }
 
+/**
+ * env - writes the environment
+ *
+ * Description: prints the whole thing in the terminal
+ * Return: void
+ */
 void env(void)
 {
 	int i;

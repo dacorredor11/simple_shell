@@ -166,6 +166,12 @@ char *get_route(char *command)
 	}
 }
 
+/**
+ * validate_buffer - allows exit or print env if asked for it
+ * @buffer: string buffer token to check
+ * Description: checks if first token is exit or the env builtin cmd
+ * Return: 0 on exit, 1 on env print
+ */
 int validate_buffer(char *buffer)
 {
 	if (_strcmp(buffer, "exit") == 0)

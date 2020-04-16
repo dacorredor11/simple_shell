@@ -15,9 +15,9 @@ void signal_handler(int sig)
 /**
  * eof - end of file declaration
  * @buffer: the string received at stdin
+ * @erno: error number on exit
  * Return: void
  */
-
 void eof(char *buffer, int erno)
 {
 	if (isatty(STDIN_FILENO))
@@ -26,6 +26,14 @@ void eof(char *buffer, int erno)
 	exit(erno);
 }
 
+/**
+ * print_error - perror the error
+ * @exec: token asked for
+ * @num: errno
+ * @error: error msg
+ * Description: print a system error message
+ * Return: void
+ */
 void print_error(char *exec, int num, char *error)
 {
 	char string[1092];
@@ -34,6 +42,14 @@ void print_error(char *exec, int num, char *error)
 	perror(string);
 }
 
+/**
+ * print_error_code - writes the error
+ * @exec: token asked for
+ * @num: errno
+ * @error: error msg
+ * Description: print a system error message
+ * Return: void
+ */
 void print_error_code(char *exec, int num, char *error)
 {
 	char string[1092];
@@ -41,4 +57,3 @@ void print_error_code(char *exec, int num, char *error)
 	sprintf(string, "%s: %d: %s: not found\n", exec, num, error);
 	write(STDERR_FILENO, string, _strlen(string));
 }
-
