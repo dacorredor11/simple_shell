@@ -29,7 +29,7 @@ int lexer(int num, char *values[])
 			else if (_strcmp(buffer, "\n") != 0)
 			{
 				handler = _strtok(buffer, "\n\t\r\0");
-				
+
 				if (!validate_buffer(buffer))
 				{
 					err_counter++, path = create_exec_buffer(handler);
