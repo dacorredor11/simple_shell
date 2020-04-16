@@ -115,11 +115,14 @@ char *get_route(char *command)
 
 		if (stat(route, &buf) == 0)
 			break;
-
-		free(route);
+		else
+		{
+			free(route);
+			route = NULL;
+		}
 		copy = copy->next;
 	}
-	if (stat(route, &buf) == 0)
+	if (route)
 	{
 		free_list(head);
 		free(command);
