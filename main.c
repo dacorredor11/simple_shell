@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 	else
 	{
 		values = argv;
-		lexer(num, values);
+		return (lexer(num, values));
 	}
 	return (EXIT_SUCCESS);
 }

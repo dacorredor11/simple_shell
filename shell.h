@@ -81,7 +81,7 @@ void print_error(char *exec, int num, char *error);
 /* Signal functions */
 
 void signal_handler(int sig);
-void eof(char *buffer);
+void eof(char *buffer, int erno);
 void print_error_code(char *exec, int num, char *error);
 
 /* End  */
@@ -111,7 +111,7 @@ int validate_buffer(char *buffer);
 path_t *get_path(void);
 size_t check_path(const path_t *head, char *str2);
 size_t exec_path(const path_t *head, char *str2);
-void lexer(int num, char *values[]);
+int lexer(int num, char *values[]);
 void get_dir(void);
 char *_getenv(char *envp);
 int validate_command(char **buffer, char *exec, int err_counter);

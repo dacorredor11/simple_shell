@@ -18,12 +18,12 @@ void signal_handler(int sig)
  * Return: void
  */
 
-void eof(char *buffer)
+void eof(char *buffer, int erno)
 {
 	if (isatty(STDIN_FILENO))
 		write(1, "\n", 1);
 	free(buffer);
-	exit(0);
+	exit(erno);
 }
 
 void print_error(char *exec, int num, char *error)

@@ -8,13 +8,13 @@
  * Return: void
  */
 
-void lexer(int num, char *values[])
+int lexer(int num, char *values[])
 {
 	char *buffer = NULL, *handler = NULL;
 	char **path = NULL;
 	size_t bufsize = 0;
 	ssize_t characters = 0;
-	int err_counter = 0;
+	int err_counter = 0, erno = 0;
 
 	if (num == 0)
 	{
@@ -26,7 +26,7 @@ void lexer(int num, char *values[])
 		{
 			signal(SIGINT, &signal_handler);
 			if (characters == EOF)
-				eof(buffer);
+				eof(buffer, erno);
 			else if (_strcmp(buffer, "\n") != 0)
 			{
 				handler = _strtok(buffer, "\n\t\r\0");
@@ -37,10 +37,14 @@ void lexer(int num, char *values[])
 				{
 					err_counter++;
 					path = create_exec_buffer(handler);
-					validate_command(path, values[0], err_counter);
+					erno = validate_command(path, values[0], err_counter);
 					free(path);
 					free(buffer);
 				}
+			}
+			else
+			{
+				free(buffer);
 			}
 			fflush(stdin);
 			bufsize = 0;
@@ -50,6 +54,7 @@ void lexer(int num, char *values[])
 				write(STDOUT_FILENO, "#cisfun$ ", 9);
 		}
 	}
+	return (erno);
 }
 
 /**
@@ -76,10 +81,13 @@ int validate_command(char **buffer, char *exec, int err_counter)
 		if (child == 0)
 		{
 			if (!execve(command, buffer, environ))
+			{
 				print_error(exec, err_counter, command);
+				return (2);
+			}
 		}
 		else
-			wait(&status), exit(status);
+			wait(&status);
 	}
 	else
 	{
@@ -90,17 +98,22 @@ int validate_command(char **buffer, char *exec, int err_counter)
 			if (child == 0)
 			{
 				if (!execve(command, buffer, environ))
+				{
 					print_error(exec, err_counter, command), free(command);
+					return (126);
+				}
 				else
 					free(command);
 			}
 			else
-				wait(&status), free(command), exit(status);
+				wait(&status), free(command);
 		}
 		else
+		{
 			print_error_code(exec, err_counter, buffer[0]);
-
-	}
+			return(127);
+		}
+	}	
 	return (0);
 }
 
