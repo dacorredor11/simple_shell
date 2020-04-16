@@ -79,14 +79,14 @@ char *_getenv(char *envp)
  * Return: void
  */
 
-void get_dir(void)
+/* void get_dir(void)
 {
 	char cwd[1024];
 
 	getcwd(cwd, sizeof(cwd));
 
 	printf("\n%s", cwd);
-}
+} */
 
 /**
  * get_path - return the pathname
