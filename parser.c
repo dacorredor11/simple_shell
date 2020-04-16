@@ -153,22 +153,25 @@ int validate_buffer(char *buffer, char *exec, int err_counter)
 	handler = _strtok(buffer, "\n\t\r");
 	if (err_counter == 0)
 		err_counter++;
-	if (count_buffer(handler) == 2)
+
+	if (_strncmp(buffer, "exit", 4) == 0)
 	{
-		bi_string = create_exec_buffer(handler);
-
-		if ((_strcmp(bi_string[0], "exit") == 0) && (_atoi(bi_string[1]) > 0))
+		if (count_buffer(handler) == 2)
 		{
-			status = _atoi(bi_string[1]);
-			free(buffer), free(bi_string), exit(status);
-		}
-		else
-		{
-			print_exit_code(exec, err_counter, bi_string[1]);
-			free(buffer);
-			free(bi_string);
+			bi_string = create_exec_buffer(handler);
 
-			return (2);
+			if ((_strcmp(bi_string[0], "exit") == 0) && (_atoi(bi_string[1]) > 0))
+			{
+				status = _atoi(bi_string[1]);
+				free(buffer), free(bi_string), exit(status);
+			}
+			else
+			{
+				print_exit_code(exec, err_counter, bi_string[1]);
+				free(buffer);
+				free(bi_string);
+				return (2);
+			}
 		}
 	}
 	else
