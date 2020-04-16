@@ -161,7 +161,7 @@ int validate_buffer(char *buffer, char *exec, int err_counter)
 		{
 			bi_string = create_exec_buffer(handler);
 
-			if ((_strcmp(bi_string[0], "exit") == 0) && (_atoi(bi_string[1]) > 0))
+			if ((_strcmp(bi_string[0], "exit") == 0) && (_atoi(bi_string[1]) >= 0))
 			{
 				status = _atoi(bi_string[1]);
 				free(buffer), free(bi_string), exit(status);
