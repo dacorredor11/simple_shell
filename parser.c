@@ -26,7 +26,7 @@ int lexer(char *values[])
 		else if (_strcmp(buffer, "\n") != 0)
 		{
 			handler = _strtok(buffer, "\n\t\r");
-			if (!validate_buffer(buffer, erno))
+			if (validate_buffer(buffer, erno))
 			{
 				err_counter++, path = create_exec_buffer(handler);
 				if (path[0] != NULL)
