@@ -21,7 +21,11 @@ int exito(char *buffer, char *exec, int err_counter)
 		err_counter++;
 
 	if (bi_string[1] == NULL)
+	{
+		free(bi_string);
+
 		return (0);
+	}
 
 	for (i = 0; bi_string[1]; i++)
 	{

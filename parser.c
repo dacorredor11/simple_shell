@@ -146,16 +146,17 @@ int validate_buffer(char *buffer, char *exec, int err_counter)
 {
 	int ex_call;
 
-	if (_strncmp(buffer, "exit", 4) == 0)
-	{
-		ex_call = exito(buffer, exec, err_counter);
-		free(buffer), exit(ex_call);
-	}
 	if (_strcmp(buffer, "env") == 0)
 	{
 		free(buffer), env();
 		return (1);
 	}
+	if (_strncmp(buffer, "exit", 4) == 0)
+	{
+		ex_call = exito(buffer, exec, err_counter);
+		free(buffer), exit(ex_call);
+	}
+
 	return (0);
 }
 
