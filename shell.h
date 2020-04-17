@@ -100,7 +100,7 @@ char *disarm_buffer(char *buffer);
 int count_buffer(char *buffer);
 char *make_string(char **disarmed);
 char **create_exec_buffer(char *buffer);
-int validate_buffer(char *buffer, char *exec, int err_counter);
+int validate_buffer(char *buffer, int err_counter);
 int exec_command(char **buffer, char *exec, int err_counter);
 
 /* End */
@@ -122,7 +122,7 @@ int _getc(FILE *stream);
 int _fgetc(FILE *stream);
 char *get_route(char *command);
 char *_strtok(char *str, char *delim);
-void env(void);
+int env(void);
 char *_findenv(const char *name, int *offset);
 
 /* End */

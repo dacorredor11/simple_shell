@@ -26,8 +26,8 @@ int lexer(char *values[])
 		else if (_strcmp(buffer, "\n") != 0)
 		{
 			handler = _strtok(buffer, "\n\t\r");
-			erno = validate_buffer(buffer, values[0], err_counter);
-			if (erno != 2 && erno != 1)
+			erno = validate_buffer(buffer, erno);
+			if (erno != 0)
 			{
 				err_counter++, path = create_exec_buffer(handler);
 				if (path[0] != NULL)
@@ -136,30 +136,24 @@ char *get_route(char *command)
 /**
  * validate_buffer - allows exit or print env if asked for it
  * @buffer: string buffer token to check
- * @exec: executable file
- * @err_counter: counter of errors
+ * @erno: error code
  * Description: checks if first token is exit or the env builtin cmd
  * Return: 0 on exit, 1 on env print
  */
 
-int validate_buffer(char *buffer, char *exec, int err_counter)
+int validate_buffer(char *buffer, int erno)
 {
-	int ex_call;
+	if (_strcmp(buffer, "exit") == 0)
+		free(buffer), exit(erno);
 
 	if (_strcmp(buffer, "env") == 0)
 	{
 		free(buffer), env();
-		return (1);
-	}
-	if (_strncmp(buffer, "exit", 4) == 0)
-	{
-		ex_call = exito(buffer, exec, err_counter);
-		free(buffer), exit(ex_call);
+		return (0);
 	}
 
-	return (0);
+	return (1);
 }
-
 /**
  * exec_command - Function that executes a command
  * @buffer: string buffer token to check
