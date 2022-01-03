@@ -119,7 +119,7 @@ exit
 "21 Savage - a lot ft. J. Cole"
 Please report any issues to the authors.
 ## Authors
-David Alejandro Corredor Mora <vidmore8@gmail.com>
+David Alejandro Corredor Mora <vidmor@gmail.com>
 
 Santiago Efrain Martinez Leon <sntgmtnz@gmail.com>
 ## License
